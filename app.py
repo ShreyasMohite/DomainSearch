@@ -4,6 +4,9 @@ import tkinter.messagebox
 import whois 
 import subprocess
 import threading
+import socket
+
+
 
 class Googles:
     def __init__(self,root):
@@ -57,6 +60,14 @@ class Googles:
                             if domain_category.get()=="All":
                                 domain=whois.whois(search_domain.get())
                                 f.write(str(domain))
+
+                            if domain_category.get()=="IP Address":
+                                ipaddress=socket.gethostbyname(search_domain.get())
+                                f.write(str(ipaddress))
+
+                  
+
+                            
 
                         
                         else:
@@ -123,7 +134,7 @@ class Googles:
         but_search.bind("<Enter>",on_enter1)
         but_search.bind("<Leave>",on_leave1)
 
-        fileselect=["Name","Expiration_Date","Last_Updated","Registrar","Creation_Date","All"]
+        fileselect=["Name","IP Address","Expiration_Date","Last_Updated","Registrar","Creation_Date","All"]
         fileselect_combo=Combobox(firstframe,values=fileselect,font=('arial',12),width=20,state="readonly",textvariable=domain_category)
         fileselect_combo.set("Select Categories")
         fileselect_combo.place(x=200,y=60)
